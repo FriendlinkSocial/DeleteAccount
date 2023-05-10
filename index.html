@@ -102,6 +102,19 @@ text-align: center;
   #myDiv.hide {
     transform: translateY(-100%);
   }
+.heading {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 45px;
+}
+
+@media only screen and (max-width: 768px) {
+  .heading {
+    font-size: 18px;
+  }
+}
+
   </style>
 </head>
 <body>
