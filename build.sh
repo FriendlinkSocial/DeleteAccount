@@ -1,1 +1,1 @@
-git submodule add $PRIVACY_POLICY_REPO PrivacyPolicy
+git submodule add https://friendlinksocial.github.io/PrivacyPolicy/index.html
