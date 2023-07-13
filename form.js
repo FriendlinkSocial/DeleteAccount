@@ -5,6 +5,7 @@ authDomain: "friendlinksocialapp.firebaseapp.com",
 projectId: "friendlinksocialapp",
 storageBucket: "friendlinksocialapp.appspot.com",
 messagingSenderId: "638805104947",
+databaseURL: "https://friendlinksocialapp.firebaseio.com",
 appId: "1:638805104947:android:05dd31296f5b3aeef10646",
 };
 // Initialize Firebase
