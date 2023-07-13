@@ -14,28 +14,41 @@ let firebaseUser;
 
 // Signup function
 function signUp() {
-  var email = document.getElementById("email");
-  var password = document.getElementById("password");
-  const promise = auth.createUserWithEmailAndPassword(
-    email.value,
-    password.value
-  );
-  promise.catch((e) => alert(e.message));
-  alert("SignUp Successful");
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+  
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      alert("SignUp Successful");
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
 }
 
 // SignIN function
 function signIn() {
-  var email = document.getElementById("email");
-  var password = document.getElementById("password");
-  const promise = auth.signInWithEmailAndPassword(email.value, password.value);
-  promise.catch((e) => alert(e.message));
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+  
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      alert("SignIn Successful");
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
 }
 
 // SignOut
 function signOut() {
-  auth.signOut();
-  alert("SignOut Successful");
+  auth.signOut()
+    .then(() => {
+      alert("SignOut Successful");
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
 }
 
 function checkPending() {
