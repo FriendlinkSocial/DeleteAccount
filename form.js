@@ -1,3 +1,4 @@
+
 var firebaseConfig = {
 apiKey: "AIzaSyCD9V2lPNIgJRBhwVLtzqvNN7hwGEueagA",
 authDomain: "friendlinksocialapp.firebaseapp.com",
@@ -6,16 +7,7 @@ storageBucket: "friendlinksocialapp.appspot.com",
 messagingSenderId: "638805104947",
 appId: "1:638805104947:android:05dd31296f5b3aeef10646",
 };
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    var email = user.email;
-    alert("Active user " + email);
-  } else {
-    alert("No Active user Found");
-  }
-});
-
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 // Signup function
@@ -29,6 +21,16 @@ const promise = auth.createUserWithEmailAndPassword(
 promise.catch((e) => alert(e.message));
 alert("SignUp Successfully");
 }
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    var email = user.email;
+    alert("Active user " + email);
+  } else {
+    alert("No Active user Found");
+  }
+});
+
 // SignIN function
 function signIn() {
 var email = document.getElementById("email");
@@ -42,7 +44,6 @@ function signOut() {
 auth.signOut();
 alert("SignOut Successfully from System");
 }
-
 // Delete user account
 function deleteAccount() {
   var user = firebase.auth().currentUser;
