@@ -1,299 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width'>
-  <title>FriendLink Social</title>
-  <link rel='icon' href="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/friendlink%20social%20transparent.webp" class="logo">
-   <style>
-     .all {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #c57efd;
-  padding: 40px;
-      color: #fff;
-      margin: 0;
-    } body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #c57efd;
-      color: #fff;
-      margin: 0;
-    }
-    .container, .profile, .Name {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #c57efd;
-      color: #fff;
-      box-sizing: border-box;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2em 1em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .profile {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 5em 1em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #F4F4F4
-      justify-content: center;
-      height: 40vh;
-    }
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content=
+		"width=device-width, initial-scale=1.0" />
 
- .image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 2em;
-    max-height: 100vh; /* Set max-height to fit within the viewport */
-    overflow-y: auto; /* Enable vertical scrolling */
-  }
+	<script src=
+"https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js">
+	</script>
 
-  .image-gallery img {
-    width: 100%;
-    max-width: 250px;
-    margin: 0.5em;
-  }
-    .Name {
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .logo {
-      display: block;
-      width: 200px;
-      margin: 0 auto;
-    }
-    .heading {
-      font-size: 30px;
- text-align: center;
-}
-  .subheading {
- text-align: center;
-  font-size: 20px;
-font-weight: bold;
-}
-    .download-btn {
-      display: block;
-      margin: 25px;
-      padding: 1em 2em;
-      background-color: #fff;
-      color: #000;
-      border-radius: 30px;
-      text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.2em;
-      max-width: 300px;
-      transition: all 0.3s ease-in-out;
-    }
-    .download-btn:hover {
-      transform: scale(1.05);
-    }
-    #myDiv {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background-color: #9D4CD8;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      transition: transform 0.5s ease-out;
-      transform: translateY(-100%);
-    }
-    #myDiv.show {
-      transform: translateY(0);
-    }
-    #myDiv.hide {
-      transform: translateY(-100%);
-    }
-    .heading {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: 45px;
-    }
-    @media only screen and (max-width: 768px) {
-
- .download-btn {
-      display: block;
-      margin: 25px;
-      padding: 1em 1em;
-      background-color: #fff;
-      color: #000;
-      border-radius: 30px;
-      text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.2em;
-      max-width: 300px;
-      transition: all 0.3s ease-in-out;
-    }
-      
-  .all {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #c57efd;
-  padding: 20px;
-      color: #fff;
-      margin: 0;
-    } body {
-
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #c57efd;
-      color: #fff;
-      margin: 0;
-    }
-
- .heading {
-        font-size: 30px;
-      }
-      .download-btn {
-        display: block;
-        margin: 20px;
-        padding: 1em 2em;
-        background-color: #fff;
-        color: #000;
-        border-radius: 30px;
-        text-align: center;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 17px;
-        max-width: 450px;
-        transition: all 0.3s ease-in-out;
-      }
-  .container {
-    padding: 2em 0.5em;
-    max-width: 90%;
-    transition: all 0.3s ease-in-out;
-  }
-  .profile {
-    padding: 1.5em 0.5em;
-    max-width: 90%;
-    height: 30vh;
-    transition: all 0.3s ease-in-out;
-  }
-   .image-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 2em;
-      max-height: 600px; /* Add this line to limit the height */
-      overflow-y: auto; /* Add this line to enable vertical scrolling */
-    }
-
-    .image-gallery img {
-      width: 100%;
-      max-width: 250px;
-      margin: 0.5em;
-    }
-
- 
-
-  </style>
+	<script src=
+"https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js">
+	</script>
+	
+	<script src="form.js"></script>
+	<title>Login System</title>
 </head>
+
 <body>
-<div id="myDiv">
-  <strong>Welcome to FriendLink Social</strong>
-</div>
-<div class="all">
-  <div class="container">
-    <img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/friendlink_logo.webp" alt="FriendLink Logo" class="logo" width="300" height="200">
-    <h1 class="heading">FriendLink Social</h1>
-    <p class="subheading">FriendLink Social is a new social media app that lets you share wide snaps and stickaboos with your friends and family. It is a fast, fun, and safe way to connect with the people you care about.</p>
-    
-
-
-<strong style="text-align: center;">Now comes with App Demo Kit, which you can try before Sign-Up.</strong>
-    <a href="https://play.google.com/store/apps/details?id=com.friendlink.android" class="download-btn">Install & Try Demo Kit Now</a>
-  </div>
-
-<div class="image-gallery" style=" margin-bottom: 30px;">
-  <img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/1.webp" alt="Screenshot 1">
-<img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/2.webp" alt="Screenshot 2">
-<img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/3.webp" alt="Screenshot 3">
-<img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/4.webp" alt="Screenshot 4">
-<img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/5.webp" alt="Screenshot 5">
-<img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/6.webp" alt="Screenshot 6">
-<img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/7.webp" alt="Screenshot 7">
-<img src="https://raw.githubusercontent.com/FriendlinkSocial/About-FriendLink/main/8.webp" alt="Screenshot 8">
-
-
-</div>
-
-<div style="text-align: center;">
-    <strong style="color: white; font-size: 20px;">Learn more about FriendLink Social</strong>
-  </div>
-<p style=" font-weight: bold;">
-FriendLink Social is a new social media app that lets you share wide snaps and stickaboos with your friends and family. It is a fast, fun, and safe way to connect with the people you care about.
-</p>
-
-<h2>Features:</h2>
-
-<ul style=" font-weight: bold;">
-  <li>Wide Snap Camera: Capture wide snaps in portrait mode and share them on FriendLink Social.</li>
-  <li>Stickaboos: Express yourself with Stickaboos, create and share stickers, photos, screenshots, and much more.</li>
-  <li>Call: Stay in touch with friends by directly calling them from your contact list instead of using a third-party provider.</li>
-  <li>Reactmoji: See your friend's reaction to your wide snaps and stickaboos. React to your friend's wide snaps and stickaboos with reactmoji.</li>
-  <li>Customize: You can customize the app theme according to your choice! Once you choose app theme, app borders and layouts will be changed to the color of your choice. FriendLink social allows you to change the capture button (animated capture buttons).</li>
-  <li>Filter Less / Filter Free / Unfiltered: FriendLink Social promotes unfiltered content and doesn't have any filters in it to make your snaps picture perfect!</li>
-  <li>Safe to Use: FriendLink Social comes with an inbuilt NSFW content filter that works both offline and online with an accuracy of 99.99%, making it one of the safest social media platforms to work with.</li>
-</ul>
-
-<h2>Benefits:</h2>
-
-<ul  style=" font-weight: bold;">
-  <li>Share wide snaps and stickaboos with your friends and family.</li>
-  <li>Express yourself with Stickaboos.</li>
-  <li>Stay in touch with friends by calling them directly.</li>
-  <li>See your friend's reaction to your wide snaps and stickaboos.</li>
-  <li>React to your friend's wide snaps and stickaboos.</li>
-  <li>Customize the app theme according to your choice.</li>
-  <li>Share unfiltered content.</li>
-  <li>Use a safe and secure social media platform.</li>
-</ul>
-
-<p  style=" font-weight: bold;">Happy Wide Snapping!</p>
-
-<p  style=" font-weight: bold;">FriendLink Social is available now for free on the App Store and Google Play. Download it today and start connecting with the people you care about!</p>
-
-</p>
-<main style="background-color: #F4F4F4; border-radius: 20px; padding: 20px;">
-    <details style="color: black;">
-      <summary style="font-weight: bold;">About the Creator</summary>
-      <div class="profile" style="background-color: #F4F4F4;">
-        <img src="https://github.com/FriendlinkSocial/About-FriendLink/blob/main/Unfiltered%20Square.jpg?raw=true" alt="Unfiltered Square" class="logo" style="border-radius: 50%;" width="500" height="400">
-      </div>
-      <div class="Name" style=" background-color: #000; text-align: center;">
-        <p style=" background-color: #000; color: white; font-size: 32px;">Mr. Siddhartha N. Manmothe</p>
-      </div>
-      <div class="Role" style="margin-top: 0.2em" ;>
-        <strong style="color: gray; font-size: 16px;">THE CREATOR AND GRIEVANCE OFFICER</strong>
-        </div>
-      <p>Meet Mr. Siddhartha N. Manmothe, an ambitious individual currently pursuing a B.S degree, and the visionary behind FriendLink Social - a cutting-edge social media platform designed to provide a space for individuals to share unfiltered images and thoughts with their friends. Unlike other social media platforms, FriendLink Social is algorithm-free, which means that users can see all the content posted by their friends without any interference from a sorting algorithm. Moreover, the platform offers a completely private social experience, ensuring that only invited friends can view the content posted, and a No Short Format Video experience as well.</p>
-      <p>As the grievance officer of FriendLink Social, Mr. Manmothe ensures that the platform is a safe and inclusive space for all users. Designed to minimize time spent on the app, FriendLink Social is user-friendly and only takes five minutes to check what your friends have shared, instead of spending an exhausting 11 hours scrolling through your feed. With a personalized app theme, a focus on authenticity and transparency, and an unwavering commitment to user privacy, FriendLink Social is revolutionizing the social media landscape, one connection at a time.</p>
-    </details>
-  </main>
-</div>
-
-<div style="background-color: black; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
-  <div>
-    <button style="background-color: transparent; color: white; border: none; cursor: pointer;"><a href="https://friendlinksocial.github.io/PrivacyPolicy/index.html" style="color: white; text-decoration: none;">Privacy Policy</a></button>
-    <button style="background-color: transparent; color: white; border: none; cursor: pointer;"><a href="https://friendlinksocial.github.io/TermsOfUse/index.html" style="color: white; text-decoration: none;">Terms of Use</a></button>
-  </div>
-  <div style="flex: 1; text-align: center;">
-  </div>
-  <div style="text-align: right; margin-right: 10px;">
-    <strong style="color: white;">FriendLink Social</strong>
-  </div>
-
+	<div class="formContainer">
+		<h1>Enter Credentials Here:</h1>
+		<input type="email"
+			placeholder="email here" id="email" />
+		<br />
+		<input type="password"
+			placeholder="password here" id="password" />
+		<br />
+		<button onclick="signUp()" id="signUp">
+			SignUp
+		</button>
+		<button onclick="signIn()" id="signIp">
+			SignIn
+		</button>
+		<button onclick="signOut()" id="signOut">
+			SignOut
+		</button>
+	</div>
 </body>
+
 </html>
