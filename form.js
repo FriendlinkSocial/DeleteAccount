@@ -46,7 +46,7 @@ async function deleteAccount() {
     alert("Fetching user data...");
     try {
       // Fetch following list
-     var followingRef =  = await db.collection("f@*aDe12").doc(user.uid).collection("F");
+     var followingRef = await db.collection("f@*aDe12").doc(user.uid).collection("F");
 	    followingRef.get().then(function(querySnapshot) {
 		    querySnapshot.forEach(function(doc) {
 	   var data = doc.data();
