@@ -124,8 +124,8 @@ async function deleteAccount() {
         await profileStorageRef.delete();
         alert("Deleting user account...");
         // Delete user account
-	     .signOut().then(function() {
-  console.log('Signed Out');
+	     await user.signOut().then(function() {
+          console.log('Signed Out');
 }, function(error) {
   console.error('Sign Out Error', error);
 });
