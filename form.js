@@ -46,68 +46,68 @@ async function deleteAccount() {
     alert("Fetching user data...");
     try {
       // Fetch following list
-      const followingSnapshot = await firestore.collection("f@*aDe12").doc(user.uid).collection("F").get();
+      const followingSnapshot = await db.collection("f@*aDe12").doc(user.uid).collection("F").get();
       followingSnapshot.forEach(function(doc) {
         followingList.push(doc.id);
       });
 
       alert("Fetching friend requests...");
       // Fetch friend requests
-      const reqSnapshot = await firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get();
+      const reqSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("F").get();
       reqSnapshot.forEach(function(doc) {
         reqList.push(doc.id);
       });
 
       alert("Fetching pending requests...");
       // Fetch pending requests
-      const pendingSnapshot = await firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+      const pendingSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("P").get();
       pendingSnapshot.forEach(function(doc) {
         pendingList.push(doc.id);
       });
 
       alert("Deleting user data...");
       // Delete user data
-      await firestore.collection("C99!2cz$").doc(user.uid).delete();
+      await db.collection("C99!2cz$").doc(user.uid).delete();
 
       alert("Deleting seenBy document...");
       // Delete seenBy document
-      await firestore.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete();
+      await db.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete();
 
       alert("Deleting seenBy list...");
       // Delete seenBy list
-      const seenBySnapshot = await firestore.collection("S45!dc&*").doc(user.uid).collection("F").get();
+      const seenBySnapshot = await db.collection("S45!dc&*").doc(user.uid).collection("F").get();
       for (const doc of seenBySnapshot.docs) {
         await doc.ref.delete();
       }
 
       alert("Deleting friend list...");
       // Delete friend list
-      const friendListSnapshot = await firestore.collection("f@*aDe12").doc(user.uid).collection("F").get();
+      const friendListSnapshot = await db.collection("f@*aDe12").doc(user.uid).collection("F").get();
       for (const doc of friendListSnapshot.docs) {
         await doc.ref.delete();
       }
 
       alert("Deleting friend requests...");
       // Delete friend requests
-      const friendReqSnapshot = await firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get();
+      const friendReqSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("F").get();
       for (const doc of friendReqSnapshot.docs) {
         await doc.ref.delete();
       }
 
       alert("Deleting pending requests...");
       // Delete pending requests
-      const pendingReqSnapshot = await firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+      const pendingReqSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("P").get();
       for (const doc of pendingReqSnapshot.docs) {
         await doc.ref.delete();
       }
 
       alert("Deleting user document and username...");
       // Delete user document and username
-      const userDoc = await firestore.collection("U34dlo@%").doc(user.uid).get();
+      const userDoc = await db.collection("U34dlo@%").doc(user.uid).get();
       if (userDoc.exists) {
         var username = userDoc.data().u;
-        await firestore.collection("Us789!z#").doc(username).delete();
-        await firestore.collection("U34dlo@%").doc(user.uid).delete();
+        await db.collection("Us789!z#").doc(username).delete();
+        await db.collection("U34dlo@%").doc(user.uid).delete();
 
         alert("Deleting user storage...");
         // Delete user storage
