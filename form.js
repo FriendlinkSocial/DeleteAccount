@@ -17,41 +17,30 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 firebase.initializeApp(firebaseConfig);
-var auth = firebase.auth();
-var firestore = firebase.firestore();
-var storage = firebase.storage();
-
+const auth = firebase.auth();
 // Signup function
 function signUp() {
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(function() {
-      alert("SignUp Successfully");
-    })
-    .catch(function(error) {
-      alert(error.message);
-    });
+var email = document.getElementById("email");
+var password = document.getElementById("password");
+const promise = auth.createUserWithEmailAndPassword(
+	email.value,
+	password.value
+);
+promise.catch((e) => alert(e.message));
+alert("SignUp Successfully");
 }
-
 // SignIN function
 function signIn() {
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-
-  auth.signInWithEmailAndPassword(email, password)
-    .catch(function(error) {
-      alert(error.message);
-    });
+var email = document.getElementById("email");
+var password = document.getElementById("password");
+const promise = auth.signInWithEmailAndPassword(
+			email.value, password.value);
+promise.catch((e) => alert(e.message));
 }
-
 // SignOut
 function signOut() {
-  auth.signOut()
-    .then(function() {
-      alert("SignOut Successfully from System");
-    });
+auth.signOut();
+alert("SignOut Successfully from System");
 }
 
 // Delete user account
