@@ -67,78 +67,68 @@ async function deleteAccount() {
 
       alert("Deleting user data...");
       // Delete user data
-      const deleteUserDataResult = await firestore.collection("C99!2cz$").doc(user.uid).delete();
+      await firestore.collection("C99!2cz$").doc(user.uid).delete();
 
       alert("Deleting seenBy document...");
       // Delete seenBy document
-      const deleteSeenByResult = await firestore.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete();
+      await firestore.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete();
 
       alert("Deleting seenBy list...");
       // Delete seenBy list
       const seenBySnapshot = await firestore.collection("S45!dc&*").doc(user.uid).collection("F").get();
-      var seenByPromises = [];
-      seenBySnapshot.forEach(function(doc) {
-        seenByPromises.push(doc.ref.delete());
-      });
-      await Promise.all(seenByPromises);
+      for (const doc of seenBySnapshot.docs) {
+        await doc.ref.delete();
+      }
 
       alert("Deleting friend list...");
       // Delete friend list
       const friendListSnapshot = await firestore.collection("f@*aDe12").doc(user.uid).collection("F").get();
-      var friendListPromises = [];
-      friendListSnapshot.forEach(function(doc) {
-        friendListPromises.push(doc.ref.delete());
-      });
-      await Promise.all(friendListPromises);
+      for (const doc of friendListSnapshot.docs) {
+        await doc.ref.delete();
+      }
 
       alert("Deleting friend requests...");
       // Delete friend requests
       const friendReqSnapshot = await firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get();
-      var friendReqPromises = [];
-      friendReqSnapshot.forEach(function(doc) {
-        friendReqPromises.push(doc.ref.delete());
-      });
-      await Promise.all(friendReqPromises);
+      for (const doc of friendReqSnapshot.docs) {
+        await doc.ref.delete();
+      }
 
       alert("Deleting pending requests...");
       // Delete pending requests
       const pendingReqSnapshot = await firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get();
-      var pendingReqPromises = [];
-      pendingReqSnapshot.forEach(function(doc) {
-        pendingReqPromises.push(doc.ref.delete());
-      });
-      await Promise.all(pendingReqPromises);
+      for (const doc of pendingReqSnapshot.docs) {
+        await doc.ref.delete();
+      }
 
       alert("Deleting user document and username...");
       // Delete user document and username
       const userDoc = await firestore.collection("U34dlo@%").doc(user.uid).get();
       if (userDoc.exists) {
         var username = userDoc.data().u;
-        const deleteUsernameResult = await firestore.collection("Us789!z#").doc(username).delete();
-        const deleteUserDocResult = await firestore.collection("U34dlo@%").doc(user.uid).delete();
+        await firestore.collection("Us789!z#").doc(username).delete();
+        await firestore.collection("U34dlo@%").doc(user.uid).delete();
 
         alert("Deleting user storage...");
         // Delete user storage
         var storageRef = storage.ref("c7689/" + user.uid + "/c");
-        const deleteUserStorageResult = await storageRef.delete();
+        await storageRef.delete();
 
         alert("Deleting friends' storage...");
         // Delete friends' storage
-        var friendsStoragePromises = [];
-        followingList.forEach(function(friendId) {
+        for (const friendId of followingList) {
           var friendStorageRef = storage.ref("c7689/" + friendId + "/c");
-          friendsStoragePromises.push(friendStorageRef.delete());
-        });
-        await Promise.all(friendsStoragePromises);
+          await friendStorageRef.delete();
+        }
 
         alert("Deleting profile storage...");
         // Delete profile storage
         var profileStorageRef = storage.ref("u43a2/" + user.uid + "/c7689");
-        const deleteProfileStorageResult = await profileStorageRef.delete();
+        await profileStorageRef.delete();
 
         alert("Deleting user account...");
         // Delete user account
-        const deleteUserAccountResult = await user.delete();
+        await user.delete();
 
         finishAccountDeletion();
       } else {
@@ -151,7 +141,6 @@ async function deleteAccount() {
     console.log("No user found.");
   }
 }
-
 
 
 // Additional steps after account deletion
