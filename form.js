@@ -113,19 +113,161 @@ function deleteUser() {
             });
     };
 
-    const deleteUserId = () => {
-        const userIdRef = firebase.firestore().collection("U34dlo@%").doc(firebaseUser.uid);
+    const deleteSeenBy = () => {
+        const ref3 = firebase.firestore().collection("S45!dc&*")
+            .doc(firebaseUser.uid)
+            .collection("F")
+            .doc(firebaseUser.uid);
 
-        return userIdRef.get()
+        return ref3.get()
+            .then((documentSnapshot) => {
+                if (documentSnapshot.exists) {
+                    return ref3.delete()
+                        .then(() => deleteSeenByList());
+                } else {
+                    return deleteSeenByList();
+                }
+            });
+    };
+
+    const deleteSeenByList = () => {
+        if (followingList.length > 0) {
+            const deletePromises = followingList.map((seenBy) => {
+                const ref3 = firebase.firestore().collection("S45!dc&*")
+                    .doc(firebaseUser.uid)
+                    .collection("F")
+                    .doc(seenBy);
+
+                return ref3.get()
+                    .then((documentSnapshot) => {
+                        if (documentSnapshot.exists) {
+                            return ref3.delete();
+                        }
+                    });
+            });
+
+            return Promise.all(deletePromises);
+        } else {
+            return Promise.resolve();
+        }
+    };
+
+    const deleteFriend = () => {
+        if (followingList.length > 0) {
+            const deletePromises = followingList.map((friendId) => {
+                const ref3 = firebase.firestore().collection("f@*aDe12")
+                    .doc(firebaseUser.uid)
+                    .collection("F")
+                    .doc(friendId);
+
+                return ref3.delete();
+            });
+
+            return Promise.all(deletePromises);
+        } else {
+            return Promise.resolve();
+        }
+    };
+
+    const deleteFriendList = () => {
+        if (followingList.length > 0) {
+            const deletePromises = followingList.map((friendId) => {
+                const ref3 = firebase.firestore().collection("f@*aDe12")
+                    .doc(friendId)
+                    .collection("F")
+                    .doc(firebaseUser.uid);
+
+                return ref3.delete();
+            });
+
+            return Promise.all(deletePromises);
+        } else {
+            return Promise.resolve();
+        }
+    };
+
+    const deleteReq = () => {
+        if (reqList.length > 0) {
+            const deletePromises = reqList.map((reqId) => {
+                const ref5 = firebase.firestore().collection("rZ89&*DE")
+                    .doc(firebaseUser.uid)
+                    .collection("F")
+                    .doc(reqId);
+
+                return ref5.delete();
+            });
+
+            return Promise.all(deletePromises);
+        } else {
+            return Promise.resolve();
+        }
+    };
+
+    const deleteReqList = () => {
+        if (reqList.length > 0) {
+            const deletePromises = reqList.map((reqId) => {
+                const ref5 = firebase.firestore().collection("rZ89&*DE")
+                    .doc(reqId)
+                    .collection("F")
+                    .doc(firebaseUser.uid);
+
+                return ref5.delete();
+            });
+
+            return Promise.all(deletePromises);
+        } else {
+            return Promise.resolve();
+        }
+    };
+
+    const deletePendingReq = () => {
+        if (pendingList.length > 0) {
+            const deletePromises = pendingList.map((reqId) => {
+                const ref5 = firebase.firestore().collection("rZ89&*DE")
+                    .doc(firebaseUser.uid)
+                    .collection("P")
+                    .doc(reqId);
+
+                return ref5.delete();
+            });
+
+            return Promise.all(deletePromises);
+        } else {
+            return Promise.resolve();
+        }
+    };
+
+    const deletePendingReqList = () => {
+        if (pendingList.length > 0) {
+            const deletePromises = pendingList.map((reqId) => {
+                const ref5 = firebase.firestore().collection("rZ89&*DE")
+                    .doc(reqId)
+                    .collection("F")
+                    .doc(firebaseUser.uid);
+
+                return ref5.delete();
+            });
+
+            return Promise.all(deletePromises);
+        } else {
+            return Promise.resolve();
+        }
+    };
+
+    const deleteUserId = () => {
+        const db = firebase.firestore();
+        const docRef = db.collection("U34dlo@%").doc(firebaseUser.uid);
+
+        return docRef.get()
             .then((documentSnapshot) => {
                 if (documentSnapshot.exists) {
                     const username = documentSnapshot.get("u");
-                    const usernameRef = firebase.firestore().collection("Us789!z#").doc(username);
+                    const ref7 = db.collection("Us789!z#").doc(username);
 
-                    return usernameRef.delete()
+                    return ref7.delete()
                         .then(() => {
-                            const userRef = firebase.firestore().collection("U34dlo@%").doc(firebaseUser.uid);
-                            return userRef.delete();
+                            const ref8 = db.collection("U34dlo@%").doc(firebaseUser.uid);
+                            return ref8.delete();
                         })
                         .then(() => deleteStorage());
                 } else {
@@ -135,13 +277,21 @@ function deleteUser() {
     };
 
     const deleteStorage = () => {
-        const deleteStorageFilePromises = [
-            deleteStorageFile(`c7689/${firebaseUser.uid}/c`),
-            ...followingList.map((reactedList) => deleteStorageFile(`c7689/${reactedList}/c`)),
-            deleteStorageFile(`u43a2/${firebaseUser.uid}/c7689`)
-        ];
+        const storageRef = firebase.storage().ref("c7689").child(firebaseUser.uid).child("c");
 
-        return Promise.all(deleteStorageFilePromises)
+        return storageRef.delete()
+            .then(() => {
+                const deletePromises = followingList.map((reactedList) => {
+                    const storageReference = firebase.storage().ref("c7689").child(reactedList).child("c");
+                    return storageReference.delete();
+                });
+
+                return Promise.all(deletePromises);
+            })
+            .then(() => {
+                const profRef = firebase.storage().ref("u43a2").child(firebaseUser.uid).child("c7689");
+                return profRef.delete();
+            })
             .then(() => finalStep());
     };
 
@@ -177,6 +327,10 @@ function deleteUser() {
     const firebaseUser = firebase.auth().currentUser;
 
     if (firebaseUser) {
+        const followingList = [];
+        const reqList = [];
+        const pendingList = [];
+
         checkFollowing()
             .then(() => checkReq())
             .then(() => checkPending())
@@ -251,7 +405,6 @@ if (firebaseUser) {
 } else {
     console.log("User is not logged in");
 }
-
 
 // Active user to homepage
 firebase.auth().onAuthStateChanged((user) => {
