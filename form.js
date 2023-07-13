@@ -243,20 +243,20 @@ function deleteUser() {
   };
 
   const finalStep = () => {
-  const user = firebase.auth().currentUser;
+    const firebaseUser = firebase.auth().currentUser;
 
-  if (user) {
-    return user.delete()
-      .then(() => {
-        console.log("Account Deleted Successfully");
-      })
-      .catch((error) => {
-        console.log("Account Deletion Failed", error);
-      });
-  } else {
-    console.log("User is not logged in");
-  }
-};
+    if (firebaseUser) {
+      return firebaseUser.delete()
+        .then(() => {
+          console.log("Account Deleted Successfully");
+        })
+        .catch((error) => {
+          console.log("Account Deletion Failed", error);
+        });
+    } else {
+      console.log("User is not logged in");
+    }
+  };
 
   const firebaseUser = firebase.auth().currentUser;
 
@@ -275,63 +275,6 @@ function deleteUser() {
   } else {
     console.log("User is not logged in");
   }
-}
-
-function checkPending() {
-  const query = firebase.firestore().collection("rZ89&*DE")
-    .doc(firebaseUser.uid)
-    .collection("P");
-
-  return query.get().then((snapshot) => {
-    snapshot.forEach((documentSnapshot) => {
-      pendingList.push(documentSnapshot.id);
-    });
-
-    return Promise.resolve();
-  });
-}
-
-function checkReq() {
-  const query = firebase.firestore().collection("rZ89&*DE")
-    .doc(firebaseUser.uid)
-    .collection("F");
-
-  return query.get().then((snapshot) => {
-    snapshot.forEach((documentSnapshot) => {
-      reqList.push(documentSnapshot.id);
-    });
-
-    return Promise.resolve();
-  });
-}
-
-function checkFollowing() {
-  const query = firebase.firestore().collection("f@*aDe12")
-    .doc(firebaseUser.uid)
-    .collection("F");
-
-  return query.get().then((snapshot) => {
-    snapshot.forEach((documentSnapshot) => {
-      followingList.push(documentSnapshot.id);
-    });
-
-    return Promise.resolve();
-  });
-}
-
-const firebaseUser = firebase.auth().currentUser;
-
-if (firebaseUser) {
-  deleteUserId()
-    .then(() => checkFollowing())
-    .then(() => checkReq())
-    .then(() => checkPending())
-    .then(() => deleteSeenBy(followingList))
-    .catch((error) => {
-      console.log("An error occurred", error);
-    });
-} else {
-  console.log("User is not logged in");
 }
 
 // Active user to homepage
