@@ -406,6 +406,8 @@ if (firebaseUser) {
     console.log("User is not logged in");
 }
 
+}
+
 // Active user to homepage
 firebase.auth().onAuthStateChanged((user) => {
 if (user) {
