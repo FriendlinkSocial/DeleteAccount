@@ -39,7 +39,7 @@ alert("SignOut Successfully from System");
 
 
 // Delete user account
- function deleteAccount() {
+ async function deleteAccount() {
   var user = firebase.auth().currentUser;
   if (user) {
     var followingList = [];
@@ -74,10 +74,10 @@ alert("SignOut Successfully from System");
       alert("Deleting user data...");
       // Delete user data
       await db.collection("C99!2cz$").doc(user.uid).delete();
-      alert("Deleting seenBy document...");
+      alert("Deleting Opened by ...");
       // Delete seenBy document
       await db.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete();
-      alert("Deleting seenBy list...");
+      alert("Deleting Opened by list...");
       // Delete seenBy list
       const seenBySnapshot = await db.collection("S45!dc&*").doc(user.uid).collection("F").get();
       seenBySnapshot.forEach(async function (doc) {
