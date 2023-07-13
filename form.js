@@ -12,6 +12,17 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 let firebaseUser;
 
+// Active user to homepage
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    firebaseUser = user;
+    var email = user.email;
+    alert("Active user " + email);
+  } else {
+    alert("No Active user Found");
+  }
+});
+
 // Signup function
 function signUp() {
   var email = document.getElementById("email").value;
@@ -353,13 +364,4 @@ function finalStep() {
   }
 }
 
-// Active user to homepage
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    firebaseUser = user;
-    var email = user.email;
-    alert("Active user " + email);
-  } else {
-    alert("No Active user Found");
-  }
-});
+
