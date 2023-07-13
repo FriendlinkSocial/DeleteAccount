@@ -47,20 +47,20 @@ function deleteAccount() {
     alert("Fetching user data...");
 
     // Fetch following list
-    firestore.collection("f@*aDe12").doc(user.uid).collection("F").get()
+    firestore.collection("f__aDe12").doc(user.uid).collection("F").get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           followingList.push(doc.id);
         });
 
-        return firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get();
+        return firestore.collection("rZ89__DE").doc(user.uid).collection("F").get();
       })
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           reqList.push(doc.id);
         });
 
-        return firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+        return firestore.collection("rZ89__DE").doc(user.uid).collection("P").get();
       })
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
@@ -70,19 +70,19 @@ function deleteAccount() {
         alert("Deleting user data...");
 
         // Delete user data
-        return firestore.collection("C99!2cz$").doc(user.uid).delete();
+        return firestore.collection("C99_2cz_").doc(user.uid).delete();
       })
       .then(function() {
         alert("Deleting seenBy document...");
 
         // Delete seenBy document
-        return firestore.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete();
+        return firestore.collection("S45_dc__").doc(user.uid).collection("F").doc(user.uid).delete();
       })
       .then(function() {
         alert("Deleting seenBy list...");
 
         // Delete seenBy list
-        return firestore.collection("S45!dc&*").doc(user.uid).collection("F").get();
+        return firestore.collection("S45_dc__").doc(user.uid).collection("F").get();
       })
       .then(function(querySnapshot) {
         var promises = [];
@@ -96,7 +96,7 @@ function deleteAccount() {
         alert("Deleting friend list...");
 
         // Delete friend list
-        return firestore.collection("f@*aDe12").doc(user.uid).collection("F").get();
+        return firestore.collection("f__aDe12").doc(user.uid).collection("F").get();
       })
       .then(function(querySnapshot) {
         var promises = [];
@@ -110,7 +110,7 @@ function deleteAccount() {
         alert("Deleting friend requests...");
 
         // Delete friend requests
-        return firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get();
+        return firestore.collection("rZ89__DE").doc(user.uid).collection("F").get();
       })
       .then(function(querySnapshot) {
         var promises = [];
@@ -124,7 +124,7 @@ function deleteAccount() {
         alert("Deleting pending requests...");
 
         // Delete pending requests
-        return firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+        return firestore.collection("rZ89__DE").doc(user.uid).collection("P").get();
       })
       .then(function(querySnapshot) {
         var promises = [];
@@ -138,15 +138,15 @@ function deleteAccount() {
         alert("Deleting user document and username...");
 
         // Delete user document and username
-        return firestore.collection("U34dlo@%").doc(user.uid).get();
+        return firestore.collection("U34dlo__").doc(user.uid).get();
       })
       .then(function(doc) {
         if (doc.exists) {
           var username = doc.data().u;
 
           return Promise.all([
-            firestore.collection("Us789!z#").doc(username).delete(),
-            firestore.collection("U34dlo@%").doc(user.uid).delete()
+            firestore.collection("Us789___").doc(username).delete(),
+            firestore.collection("U34dlo__").doc(user.uid).delete()
           ]);
         } else {
           return Promise.resolve();
