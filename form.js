@@ -52,8 +52,6 @@ async function deleteAccount() {
       followingRef.forEach(function (doc) {
         var data = doc.data();
         followingList.push(data);
-	        alert(listArray.array);
-	        alert("Inside Try");
       });
       console.log(followingList);
 
@@ -126,7 +124,16 @@ async function deleteAccount() {
         await profileStorageRef.delete();
         alert("Deleting user account...");
         // Delete user account
-        await user.delete();
+	     .signOut().then(function() {
+  console.log('Signed Out');
+}, function(error) {
+  console.error('Sign Out Error', error);
+});
+        await user.delete()then(function() {
+  console.log('Account Deleted Successfully');
+}, function(error) {
+  console.error('Account Deleting Error', error);
+});
         finishAccountDeletion();
       } else {
         finishAccountDeletion();
