@@ -124,7 +124,8 @@ async function deleteAccount() {
         await profileStorageRef.delete();
         alert("Deleting user account...");
         // Delete user account
-        await user.delete().then(function() {
+	      const userC = firebase.auth().currentUser;
+        await userC.delete().then(function() {
   console.log('Account Deleted Successfully');
 }, function(error) {
   console.error('Account Deleting Error', error);
