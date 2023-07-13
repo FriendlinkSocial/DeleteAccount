@@ -39,7 +39,7 @@ alert("SignOut Successfully from System");
 
 
 // Delete user account
-async function deleteAccount() {
+ function deleteAccount() {
   var user = firebase.auth().currentUser;
   if (user) {
     var followingList = [];
