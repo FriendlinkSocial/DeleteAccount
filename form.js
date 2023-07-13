@@ -42,9 +42,9 @@ alert("SignOut Successfully from System");
 async function deleteAccount() {
   var user = firebase.auth().currentUser;
   if (user) {
-    var followingList = [];
-    var reqList = [];
-    var pendingList = [];
+    let followingList = [];
+    let reqList = [];
+    let pendingList = [];
     alert("Fetching user data...");
     
       // Fetch following list
