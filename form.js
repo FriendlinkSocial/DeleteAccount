@@ -46,24 +46,44 @@ async function deleteAccount() {
     alert("Fetching user data...");
     try {
       // Fetch following list
-      const followingSnapshot = await db.collection("f@*aDe12").doc(user.uid).collection("F").get();
-      followingSnapshot.forEach(function(doc) {
-        followingList.push(doc.id);
-      });
+     var followingRef =  = await db.collection("f@*aDe12").doc(user.uid).collection("F");
+	    followingRef.get().then(function(querySnapshot) {
+		    querySnapshot.forEach(function(doc) {
+	   var data = doc.data();
+	  followingList.push(data); 
+  });
+	  console.log(myArray);
+}).catch(function(error) {
+  // Handle the error
+});	    
 
-      alert("Fetching friend requests...");
+alert("Fetching friend requests...");
       // Fetch friend requests
-      const reqSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("F").get();
-      reqSnapshot.forEach(function(doc) {
-        reqList.push(doc.id);
+      var reqRef = await db.collection("rZ89&*DE").doc(user.uid).collection("F").get();
+      reqRef.get().then(function(querySnapshot) {
+	        querySnapshot.forEach(function(doc) {
+	   var data = doc.data();
+        reqList.push(data);
       });
+	  console.log(myArray);
+}).catch(function(error) {
+  // Handle the error
+});
 
-      alert("Fetching pending requests...");
-      // Fetch pending requests
-      const pendingSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("P").get();
-      pendingSnapshot.forEach(function(doc) {
-        pendingList.push(doc.id);
+ alert("Fetching pending requests...");
+ // Fetch pending requests
+    
+ var pendingRef = await db.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+     pendingRef.get().then(function(querySnapshot) {
+	        querySnapshot.forEach(function(doc) {
+	   var data = doc.data();
+        pendingList.push(data);
       });
+	  console.log(myArray);
+}).catch(function(error) {
+  // Handle the error
+});
+
 
       alert("Deleting user data...");
       // Delete user data
