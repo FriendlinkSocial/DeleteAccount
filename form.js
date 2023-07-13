@@ -132,7 +132,7 @@ async function deleteAccount() {
         finishAccountDeletion();
       } else {
 
-   await user.delete().then(function() {
+user.delete().then(function() {
   console.log('Account Deleted Successfully');
 }, function(error) {
   console.error('Account Deleting Error', error);
