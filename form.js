@@ -262,7 +262,7 @@ function deleteAccount() {
 
 // Additional steps after account deletion
 function finishAccountDeletion() {
-  finishAffinity(); // Close the app (you may need to implement this)
+ // Close the app (you may need to implement this)
   alert("Account Deleted Successfully");
   // Redirect to desired page or perform other actions
 }
