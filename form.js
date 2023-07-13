@@ -46,44 +46,30 @@ async function deleteAccount() {
     alert("Fetching user data...");
     try {
       // Fetch following list
-     var followingRef = await db.collection("f@*aDe12").doc(user.uid).collection("F");
-	    followingRef.get().then(function(querySnapshot) {
-		    querySnapshot.forEach(function(doc) {
-	   var data = doc.data();
-	  followingList.push(data); 
-  });
-	  console.log(myArray);
-}).catch(function(error) {
-  // Handle the error
-});	    
+      var followingRef = await db.collection("f@*aDe12").doc(user.uid).collection("F").get();
+      followingRef.forEach(function (doc) {
+        var data = doc.data();
+        followingList.push(data);
+      });
+      console.log(followingList);
 
-alert("Fetching friend requests...");
+      alert("Fetching friend requests...");
       // Fetch friend requests
       var reqRef = await db.collection("rZ89&*DE").doc(user.uid).collection("F").get();
-      reqRef.get().then(function(querySnapshot) {
-	        querySnapshot.forEach(function(doc) {
-	   var data = doc.data();
+      reqRef.forEach(function (doc) {
+        var data = doc.data();
         reqList.push(data);
       });
-	  console.log(myArray);
-}).catch(function(error) {
-  // Handle the error
-});
+      console.log(reqList);
 
- alert("Fetching pending requests...");
- // Fetch pending requests
-    
- var pendingRef = await db.collection("rZ89&*DE").doc(user.uid).collection("P").get();
-     pendingRef.get().then(function(querySnapshot) {
-	        querySnapshot.forEach(function(doc) {
-	   var data = doc.data();
+      alert("Fetching pending requests...");
+      // Fetch pending requests
+      var pendingRef = await db.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+      pendingRef.forEach(function (doc) {
+        var data = doc.data();
         pendingList.push(data);
       });
-	  console.log(myArray);
-}).catch(function(error) {
-  // Handle the error
-});
-
+      console.log(pendingList);
 
       alert("Deleting user data...");
       // Delete user data
@@ -96,30 +82,30 @@ alert("Fetching friend requests...");
       alert("Deleting seenBy list...");
       // Delete seenBy list
       const seenBySnapshot = await db.collection("S45!dc&*").doc(user.uid).collection("F").get();
-      for (const doc of seenBySnapshot.docs) {
+      seenBySnapshot.forEach(async function (doc) {
         await doc.ref.delete();
-      }
+      });
 
       alert("Deleting friend list...");
       // Delete friend list
       const friendListSnapshot = await db.collection("f@*aDe12").doc(user.uid).collection("F").get();
-      for (const doc of friendListSnapshot.docs) {
+      friendListSnapshot.forEach(async function (doc) {
         await doc.ref.delete();
-      }
+      });
 
       alert("Deleting friend requests...");
       // Delete friend requests
       const friendReqSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("F").get();
-      for (const doc of friendReqSnapshot.docs) {
+      friendReqSnapshot.forEach(async function (doc) {
         await doc.ref.delete();
-      }
+      });
 
       alert("Deleting pending requests...");
       // Delete pending requests
       const pendingReqSnapshot = await db.collection("rZ89&*DE").doc(user.uid).collection("P").get();
-      for (const doc of pendingReqSnapshot.docs) {
+      pendingReqSnapshot.forEach(async function (doc) {
         await doc.ref.delete();
-      }
+      });
 
       alert("Deleting user document and username...");
       // Delete user document and username
@@ -161,6 +147,7 @@ alert("Fetching friend requests...");
     console.log("No user found.");
   }
 }
+
 
 
 // Additional steps after account deletion
