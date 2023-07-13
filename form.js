@@ -11,6 +11,7 @@ appId: "1:638805104947:android:05dd31296f5b3aeef10646",
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -47,7 +48,7 @@ async function deleteAccount() {
     alert("Fetching user data...");
     
       // Fetch following list
-      var followingRef = await db.collection("f@*aDe12").doc(user.uid).collection("F").get();
+      var followingRef = db.collection("f@*aDe12").doc(user.uid).collection("F").get();
       followingRef.forEach(function (doc) {
         var data = doc.data();
         followingList.push(data);
