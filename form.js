@@ -36,7 +36,6 @@ alert("SignOut Successfully from System");
 }
 
 
-// Delete user account
 function deleteAccount() {
   var user = firebase.auth().currentUser;
 
@@ -53,194 +52,149 @@ function deleteAccount() {
         querySnapshot.forEach(function(doc) {
           followingList.push(doc.id);
         });
+
+        return firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get();
+      })
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          reqList.push(doc.id);
+        });
+
+        return firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+      })
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          pendingList.push(doc.id);
+        });
+
+        alert("Deleting user data...");
+
+        // Delete user data
+        return firestore.collection("C99!2cz$").doc(user.uid).delete();
       })
       .then(function() {
-        alert("Fetching friend requests...");
+        alert("Deleting seenBy document...");
 
-        // Fetch friend requests
-        firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get()
-          .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-              reqList.push(doc.id);
-            });
-          })
-          .then(function() {
-            alert("Fetching pending requests...");
+        // Delete seenBy document
+        return firestore.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete();
+      })
+      .then(function() {
+        alert("Deleting seenBy list...");
 
-            // Fetch pending requests
-            firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get()
-              .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                  pendingList.push(doc.id);
-                });
-              })
-              .then(function() {
-                alert("Deleting user data...");
+        // Delete seenBy list
+        return firestore.collection("S45!dc&*").doc(user.uid).collection("F").get();
+      })
+      .then(function(querySnapshot) {
+        var promises = [];
+        querySnapshot.forEach(function(doc) {
+          promises.push(doc.ref.delete());
+        });
 
-                // Delete user data
-                firestore.collection("C99!2cz$").doc(user.uid).delete()
-                  .then(function() {
-                    alert("Deleting seenBy document...");
+        return Promise.all(promises);
+      })
+      .then(function() {
+        alert("Deleting friend list...");
 
-                    // Delete seenBy document
-                    firestore.collection("S45!dc&*").doc(user.uid).collection("F").doc(user.uid).delete()
-                      .then(function() {
-                        alert("Deleting seenBy list...");
+        // Delete friend list
+        return firestore.collection("f@*aDe12").doc(user.uid).collection("F").get();
+      })
+      .then(function(querySnapshot) {
+        var promises = [];
+        querySnapshot.forEach(function(doc) {
+          promises.push(doc.ref.delete());
+        });
 
-                        // Delete seenBy list
-                        firestore.collection("S45!dc&*").doc(user.uid).collection("F").get()
-                          .then(function(querySnapshot) {
-                            var promises = [];
-                            querySnapshot.forEach(function(doc) {
-                              promises.push(doc.ref.delete());
-                            });
-                            return Promise.all(promises);
-                          })
-                          .then(function() {
-                            alert("Deleting friend list...");
+        return Promise.all(promises);
+      })
+      .then(function() {
+        alert("Deleting friend requests...");
 
-                            // Delete friend list
-                            firestore.collection("f@*aDe12").doc(user.uid).collection("F").get()
-                              .then(function(querySnapshot) {
-                                var promises = [];
-                                querySnapshot.forEach(function(doc) {
-                                  promises.push(doc.ref.delete());
-                                });
-                                return Promise.all(promises);
-                              })
-                              .then(function() {
-                                alert("Deleting friend requests...");
+        // Delete friend requests
+        return firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get();
+      })
+      .then(function(querySnapshot) {
+        var promises = [];
+        querySnapshot.forEach(function(doc) {
+          promises.push(doc.ref.delete());
+        });
 
-                                // Delete friend requests
-                                firestore.collection("rZ89&*DE").doc(user.uid).collection("F").get()
-                                  .then(function(querySnapshot) {
-                                    var promises = [];
-                                    querySnapshot.forEach(function(doc) {
-                                      promises.push(doc.ref.delete());
-                                    });
-                                    return Promise.all(promises);
-                                  })
-                                  .then(function() {
-                                    alert("Deleting pending requests...");
+        return Promise.all(promises);
+      })
+      .then(function() {
+        alert("Deleting pending requests...");
 
-                                    // Delete pending requests
-                                    firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get()
-                                      .then(function(querySnapshot) {
-                                        var promises = [];
-                                        querySnapshot.forEach(function(doc) {
-                                          promises.push(doc.ref.delete());
-                                        });
-                                        return Promise.all(promises);
-                                      })
-                                      .then(function() {
-                                        alert("Deleting user document and username...");
+        // Delete pending requests
+        return firestore.collection("rZ89&*DE").doc(user.uid).collection("P").get();
+      })
+      .then(function(querySnapshot) {
+        var promises = [];
+        querySnapshot.forEach(function(doc) {
+          promises.push(doc.ref.delete());
+        });
 
-                                        // Delete user document and username
-                                        firestore.collection("U34dlo@%").doc(user.uid).get()
-                                          .then(function(doc) {
-                                            if (doc.exists) {
-                                              var username = doc.data().u;
+        return Promise.all(promises);
+      })
+      .then(function() {
+        alert("Deleting user document and username...");
 
-                                              firestore.collection("Us789!z#").doc(username).delete()
-                                                .then(function() {
-                                                  firestore.collection("U34dlo@%").doc(user.uid).delete()
-                                                    .then(function() {
-                                                      alert("Deleting user storage...");
+        // Delete user document and username
+        return firestore.collection("U34dlo@%").doc(user.uid).get();
+      })
+      .then(function(doc) {
+        if (doc.exists) {
+          var username = doc.data().u;
 
-                                                      // Delete user storage
-                                                      var storageRef = storage.ref("c7689/" + user.uid + "/c");
-                                                      storageRef.delete()
-                                                        .then(function() {
-                                                          alert("Deleting friends' storage...");
+          return Promise.all([
+            firestore.collection("Us789!z#").doc(username).delete(),
+            firestore.collection("U34dlo@%").doc(user.uid).delete()
+          ]);
+        } else {
+          return Promise.resolve();
+        }
+      })
+      .then(function() {
+        alert("Deleting user storage...");
 
-                                                          // Delete friends' storage
-                                                          var promises = [];
-                                                          followingList.forEach(function(friendId) {
-                                                            var friendStorageRef = storage.ref("c7689/" + friendId + "/c");
-                                                            promises.push(friendStorageRef.delete());
-                                                          });
-                                                          return Promise.all(promises);
-                                                        })
-                                                        .then(function() {
-                                                          alert("Deleting profile storage...");
+        // Delete user storage
+        var storageRef = storage.ref("c7689/" + user.uid + "/c");
+        return storageRef.delete();
+      })
+      .then(function() {
+        alert("Deleting friends' storage...");
 
-                                                          // Delete profile storage
-                                                          var profileStorageRef = storage.ref("u43a2/" + user.uid + "/c7689");
-                                                          profileStorageRef.delete()
-                                                            .then(function() {
-                                                              alert("Deleting user account...");
+        // Delete friends' storage
+        var promises = [];
+        followingList.forEach(function(friendId) {
+          var friendStorageRef = storage.ref("c7689/" + friendId + "/c");
+          promises.push(friendStorageRef.delete());
+        });
 
-                                                              // Delete user account
-                                                              user.delete()
-                                                                .then(function() {
-                                                                  finishAccountDeletion();
-                                                                })
-                                                                .catch(function(error) {
-                                                                  console.error("Error deleting user account:", error);
-                                                                });
-                                                            })
-                                                            .catch(function(error) {
-                                                              console.error("Error deleting profile storage:", error);
-                                                            });
-                                                        })
-                                                        .catch(function(error) {
-                                                          console.error("Error deleting friends' storage:", error);
-                                                        });
-                                                    })
-                                                    .catch(function(error) {
-                                                      console.error("Error deleting user document:", error);
-                                                    });
-                                                })
-                                                .catch(function(error) {
-                                                  console.error("Error deleting username:", error);
-                                                });
-                                            } else {
-                                              finishAccountDeletion();
-                                            }
-                                          })
-                                          .catch(function(error) {
-                                            console.error("Error fetching user document:", error);
-                                          });
-                                      })
-                                      .catch(function(error) {
-                                        console.error("Error deleting pending requests:", error);
-                                      });
-                                  })
-                                  .catch(function(error) {
-                                    console.error("Error deleting friend requests:", error);
-                                  });
-                              })
-                              .catch(function(error) {
-                                console.error("Error deleting friend list:", error);
-                              });
-                          })
-                          .catch(function(error) {
-                            console.error("Error deleting seenBy list:", error);
-                          });
-                      })
-                      .catch(function(error) {
-                        console.error("Error deleting seenBy document:", error);
-                      });
-                  })
-                  .catch(function(error) {
-                    console.error("Error deleting user data:", error);
-                  });
-              })
-              .catch(function(error) {
-                console.error("Error fetching pending requests:", error);
-              });
-          })
-          .catch(function(error) {
-            console.error("Error fetching friend requests:", error);
-          });
+        return Promise.all(promises);
+      })
+      .then(function() {
+        alert("Deleting profile storage...");
+
+        // Delete profile storage
+        var profileStorageRef = storage.ref("u43a2/" + user.uid + "/c7689");
+        return profileStorageRef.delete();
+      })
+      .then(function() {
+        alert("Deleting user account...");
+
+        // Delete user account
+        return user.delete();
+      })
+      .then(function() {
+        finishAccountDeletion();
       })
       .catch(function(error) {
-        console.error("Error fetching following list:", error);
+        console.error("Error deleting user account:", error);
       });
   } else {
     console.log("No user found.");
   }
 }
+
 
 // Additional steps after account deletion
 function finishAccountDeletion() {
