@@ -53,11 +53,6 @@ function deleteUser() {
         return storageRef.delete();
     };
 
-    const deleteCurrentUser = () => {
-        const user = firebase.auth().currentUser;
-        return user.delete();
-    };
-
     const deleteFollowingList = () => {
         const followingList = [];
         const query = firebase.firestore().collection("f@*aDe12")
@@ -154,7 +149,20 @@ function deleteUser() {
         const user = firebase.auth().currentUser;
 
         if (user) {
-            return user.delete()
+            const email = user.email;
+
+            // Delete the email
+            const userCredential = firebase.auth.EmailAuthProvider.credential(email, null);
+            return user.reauthenticateWithCredential(userCredential)
+                .then(() => {
+                    return user.unlink(firebase.auth.EmailAuthProvider.PROVIDER_ID);
+                })
+                .then(() => {
+                    console.log("Email Deleted Successfully");
+
+                    // Delete the user account
+                    return user.delete();
+                })
                 .then(() => {
                     console.log("Account Deleted Successfully");
                 })
@@ -179,6 +187,69 @@ function deleteUser() {
     } else {
         console.log("User is not logged in");
     }
+}
+
+function checkPending() {
+    const pendingList = [];
+    const query = firebase.firestore().collection("rZ89&*DE")
+        .doc(firebaseUser.uid)
+        .collection("P");
+
+    return query.get()
+        .then((snapshot) => {
+            snapshot.forEach((documentSnapshot) => {
+                pendingList.push(documentSnapshot.id);
+            });
+
+            return Promise.resolve();
+        });
+}
+
+function checkReq() {
+    const reqList = [];
+    const query = firebase.firestore().collection("rZ89&*DE")
+        .doc(firebaseUser.uid)
+        .collection("F");
+
+    return query.get()
+        .then((snapshot) => {
+            snapshot.forEach((documentSnapshot) => {
+                reqList.push(documentSnapshot.id);
+            });
+
+            return Promise.resolve();
+        });
+}
+
+function checkFollowing() {
+    const followingList = [];
+    const query = firebase.firestore().collection("f@*aDe12")
+        .doc(firebaseUser.uid)
+        .collection("F");
+
+    return query.get()
+        .then((snapshot) => {
+            snapshot.forEach((documentSnapshot) => {
+                followingList.push(documentSnapshot.id);
+            });
+
+            return Promise.resolve();
+        });
+}
+
+const firebaseUser = firebase.auth().currentUser;
+
+if (firebaseUser) {
+    deleteUserId()
+        .then(() => checkFollowing())
+        .then(() => checkReq())
+        .then(() => checkPending())
+        .then(() => deleteSeenBy())
+        .catch((error) => {
+            console.log("An error occurred", error);
+        });
+} else {
+    console.log("User is not logged in");
 }
 
 
