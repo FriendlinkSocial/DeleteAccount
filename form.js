@@ -44,7 +44,7 @@ async function deleteAccount() {
     var reqList = [];
     var pendingList = [];
     alert("Fetching user data...");
-    try {
+    
       // Fetch following list
       var followingRef = await db.collection("f@*aDe12").doc(user.uid).collection("F").get();
       followingRef.forEach(function (doc) {
@@ -141,9 +141,6 @@ async function deleteAccount() {
       } else {
         finishAccountDeletion();
       }
-    } catch (error) {
-      console.error("Error deleting user account:", error);
-    }
   } else {
     console.log("No user found.");
   }
