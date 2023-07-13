@@ -26,6 +26,7 @@ var password = document.getElementById("password");
 const promise = auth.signInWithEmailAndPassword(
 			email.value, password.value);
 promise.catch((e) => alert(e.message));
+	alert("SignIn Successful");
 }
 
 // SignOut
