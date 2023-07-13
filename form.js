@@ -50,6 +50,7 @@ async function deleteAccount() {
       followingRef.forEach(function (doc) {
         var data = doc.data();
         followingList.push(data);
+	        alert(listArray.array);
       });
       console.log(followingList);
 
